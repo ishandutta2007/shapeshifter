@@ -10,10 +10,25 @@ function inject(filePath, callback) {
 }
 
 inject("js/ua.js", function() {
+
+    console.log("[INFO] Injected UA ...");
+
     inject("js/words.js", function() {
+
+        console.log("[INFO] Injected Words ...");
+
         inject("js/lang.js", function() {
-            inject("lib/seedrandom.min.js", function() {
+
+            console.log("[INFO] Injected Lang ...");
+
+            inject("js/lib/seedrandom.min.js", function() {
+
+                console.log("[INFO] Injected Seed Random ...");
+
                 inject("js/random.js", function() {
+
+                    console.log("[INFO] Injected Random ...");
+
                     inject("js/api/document.js", function() {
                         console.log("[INFO] Injected Document API ...");
                     });

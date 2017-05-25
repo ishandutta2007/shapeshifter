@@ -26,5 +26,6 @@ function randomBoolean() {
 * Largest possible value is 'max - 1'.
 */
 function randomNumber(min, max) {
+	// TODO: Math.random() is a toy. Need a CSPRNG.
 	return Math.floor(Math.random() * (max - min) + min);
 }

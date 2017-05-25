@@ -1,4 +1,4 @@
-const languages = [
+var languages = [
 "af-ZA", // Afrikaans - South Africa
 "sq-AL", // Albanian - Albania
 "ar-DZ", // Arabic - Algeria

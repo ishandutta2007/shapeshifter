@@ -1,4 +1,4 @@
-const words = [
+var words = [
     "acrobat",
     "africa",
     "alaska",

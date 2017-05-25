@@ -2,6 +2,7 @@
     'use strict';
 
     function fakeReferrer(origin) {
+
         Math.seedrandom(origin);
 
         const firstWord = words[randomNumber(0, words.length)];
