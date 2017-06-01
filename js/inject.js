@@ -44,6 +44,9 @@ inject("js/ua.js", function() {
                     inject("js/api/battery.js", function() {
                         console.log("[INFO] Injected Battery API ...");
                     });
+                    inject("js/api/audio.js", function() {
+                        console.log("[INFO] Injected Audio API ...");
+                    });
                 });
             });
         });
