@@ -47,6 +47,9 @@ inject("js/ua.js", function() {
                     inject("js/api/audio.js", function() {
                         console.log("[INFO] Injected Audio API ...");
                     });
+                    inject("js/api/element.js", function() {
+                        console.log("[INFO] Injected Element API ...");
+                    })
                 });
             });
         });

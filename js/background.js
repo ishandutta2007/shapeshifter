@@ -1,15 +1,15 @@
 "use strict";
 
-function randomAcceptHeader(origin) {
+function getAcceptHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomAcceptCharsetHeader(origin) {
+function getAcceptCharsetHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomAcceptEncodingHeader(origin) {
+function getAcceptEncodingHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomAcceptLanguageHeader(origin) {
+function getAcceptLanguageHeader(origin) {
     Math.seedrandom(origin);
 
     const language = languages[randomNumber(0, languages.length)];
@@ -23,43 +23,43 @@ function randomAcceptLanguageHeader(origin) {
             // TODO: How to display Cyrillic or Latin versions of the same language???
     }
 }
-function randomAuthorizationHeader(origin) {
+function getAuthorizationHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomExpectHeader(origin) {
+function getExpectHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomFromHeader(origin) {
+function getFromHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomHostHeader(origin) {
+function getHostHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomIfMatchHeader(origin) {
+function getIfMatchHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomIfModifiedSinceHeader(origin) {
+function getIfModifiedSinceHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomIfNoneMatchHeader(origin) {
+function getIfNoneMatchHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomIfRangeHeader(origin) {
+function getIfRangeHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomIfUnmodifiedSinceHeader(origin) {
+function getIfUnmodifiedSinceHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomMaxForwardsHeader(origin) {
+function getMaxForwardsHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomProxyAuthorizationHeader(origin) {
+function getProxyAuthorizationHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomRangeHeader(origin) {
+function getRangeHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomRefererHeader(origin) {
+function getRefererHeader(origin) {
     Math.seedrandom(origin);
 
     const firstWord = words[randomNumber(0, words.length)];
@@ -81,10 +81,10 @@ function randomRefererHeader(origin) {
 
     return referrer;
 }
-function randomTEHeader(origin) {
+function getTEHeader(origin) {
 	return "NotYetImplemented";
 }
-function randomUserAgentHeader(origin) {
+function getUserAgentHeader(origin) {
     Math.seedrandom(origin);
     const randomBrowser = randomNumber(0, 5);
     switch (randomBrowser) {
@@ -113,7 +113,7 @@ function rewriteHttpHeaders(e) {
 		else if (header.name.toLowerCase() === "accept-encoding") {
 		}
 		else if (header.name.toLowerCase() === "accept-language") {
-            header.value = randomAcceptLanguageHeader(origin);
+            header.value = getAcceptLanguageHeader(origin);
 		}
 		else if (header.name.toLowerCase() === "authorization") {
 		}
@@ -140,12 +140,12 @@ function rewriteHttpHeaders(e) {
 		else if (header.name.toLowerCase() === "range") {
 		}
 		else if (header.name.toLowerCase() === "referer") {
-			header.value = randomRefererHeader(origin);
+			header.value = getRefererHeader(origin);
 		}
 		else if (header.name.toLowerCase() === "te") {
 		}
 		else if (header.name.toLowerCase() === "user-agent") {
-			header.value = randomUserAgentHeader(origin);
+			header.value = getUserAgentHeader(origin);
 		}
 	}
 

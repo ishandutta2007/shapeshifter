@@ -43,6 +43,7 @@
         "js/api/canvas.js",
         "js/api/history.js",
         "js/api/battery.js",
-        "js/api/audio.js"
+        "js/api/audio.js",
+        "js/api/element.js"
     ]
 }
