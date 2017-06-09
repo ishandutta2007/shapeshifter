@@ -17,39 +17,34 @@ inject("js/ua.js", function() {
 
         console.log("[INFO] Injected Words ...");
 
-        inject("js/lang.js", function() {
+        inject("js/lib/seedrandom.min.js", function() {
 
-            console.log("[INFO] Injected Lang ...");
+            console.log("[INFO] Injected Seed Random ...");
 
-            inject("js/lib/seedrandom.min.js", function() {
+            inject("js/random.js", function() {
 
-                console.log("[INFO] Injected Seed Random ...");
+                console.log("[INFO] Injected Random ...");
 
-                inject("js/random.js", function() {
-
-                    console.log("[INFO] Injected Random ...");
-
-                    inject("js/api/document.js", function() {
-                        console.log("[INFO] Injected Document API ...");
-                    });
-                    inject("js/api/navigator.js", function() {
-                        console.log("[INFO] Injected Navigator API ...");
-                    });
-                    inject("js/api/canvas.js", function() {
-                        console.log("[INFO] Injected Canvas API ...");
-                    });
-                    inject("js/api/history.js", function() {
-                        console.log("[INFO] Injected History API ...");
-                    });
-                    inject("js/api/battery.js", function() {
-                        console.log("[INFO] Injected Battery API ...");
-                    });
-                    inject("js/api/audio.js", function() {
-                        console.log("[INFO] Injected Audio API ...");
-                    });
-                    inject("js/api/element.js", function() {
-                        console.log("[INFO] Injected Element API ...");
-                    })
+                inject("js/api/document.js", function() {
+                    console.log("[INFO] Injected Document API ...");
+                });
+                inject("js/api/navigator.js", function() {
+                    console.log("[INFO] Injected Navigator API ...");
+                });
+                inject("js/api/canvas.js", function() {
+                    console.log("[INFO] Injected Canvas API ...");
+                });
+                inject("js/api/history.js", function() {
+                    console.log("[INFO] Injected History API ...");
+                });
+                inject("js/api/battery.js", function() {
+                    console.log("[INFO] Injected Battery API ...");
+                });
+                inject("js/api/audio.js", function() {
+                    console.log("[INFO] Injected Audio API ...");
+                });
+                inject("js/api/element.js", function() {
+                    console.log("[INFO] Injected Element API ...");
                 });
             });
         });

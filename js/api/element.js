@@ -11,19 +11,17 @@
 
         Math.seedrandom(origin);
 
+        if (!rectangle.hasOwnProperty('x')) {
+            console.log("No x");
+            rectangle.x = rectangle.left;
+        }
+
+        if (!rectangle.hasOwnProperty('y')) {
+            console.log("No y");
+            rectangle.y = rectangle.top;
+        }
+
         return Object.defineProperties(rectangle, {
-            x: {
-                configurable: false,
-                enumerable: true,
-                writable: false,
-                value: 0 // TODO: Is this safe?
-            },
-            y: {
-                configurable: false,
-                enumerable: true,
-                writable: false,
-                value: 0 // TODO: Is this safe?
-            },
             width: {
                 configurable: false,
                 enumerable: true,

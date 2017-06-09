@@ -15,32 +15,12 @@
     function fakeHardwareConcurrency(origin) {    Math.seedrandom(origin); return randomNumber(0, 9); }
     function fakeJavaEnabled(origin) {            Math.seedrandom(origin); return randomBoolean(); }
     function fakeLanguage(origin) {
-        Math.seedrandom(origin);
-
-        const language = languages[randomNumber(0, languages.length)];
-
-        const languageParts = language.split("-");
-
-        switch (languageParts.length) {
-            case 2:
-                return languageParts[0] + "-" + languageParts[1];
-            case 3:
-                // TODO: How to display Cyrillic or Latin versions of the same language???
-        }
+        // NOTE: TOR Browser uses American English
+        return "en-US";
     }
     function fakeLanguages(origin) {
-        Math.seedrandom(origin);
-
-        const language = languages[randomNumber(0, languages.length)];
-
-        const languageParts = language.split("-");
-
-        switch (languageParts.length) {
-            case 2:
-                return languageParts[0] + "-" + languageParts[1] + "," + languageParts[0];
-            case 3:
-                // TODO: How to display Cyrillic or Latin versions of the same language???
-        }
+        // NOTE: TOR Browser uses American English
+        return "en-US,en";
     }
     function fakeMimeTypes(origin) {              Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
     function fakeOnLine(origin) {                 Math.seedrandom(origin); return randomBoolean(); }
@@ -53,19 +33,8 @@
     function fakeStorage(origin) {                Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
     function fakeUserAgent(origin) {
         Math.seedrandom(origin);
-        const randomBrowser = randomNumber(0, 5);
-        switch (randomBrowser) {
-            case 0:
-                return ieUserAgents[randomNumber(0, ieUserAgents.length)];
-            case 1:
-                return firefoxUserAgents[randomNumber(0, firefoxUserAgents.length)];
-            case 2:
-                return chromeUserAgents[randomNumber(0, chromeUserAgents.length)];
-            case 3:
-                return safariUserAgents[randomNumber(0, safariUserAgents.length)];
-            case 4:
-                return operaUserAgents[randomNumber(0, operaUserAgents.length)];
-        }
+
+    	return userAgents[randomNumber(0, userAgents.length)];
     }
 
     const origin = window.location.hostname;

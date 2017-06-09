@@ -10,18 +10,8 @@ function getAcceptEncodingHeader(origin) {
 	return "NotYetImplemented";
 }
 function getAcceptLanguageHeader(origin) {
-    Math.seedrandom(origin);
-
-    const language = languages[randomNumber(0, languages.length)];
-
-    const languageParts = language.split("-");
-
-    switch (languageParts.length) {
-        case 2:
-            return languageParts[0] + "-" + languageParts[1] + ";q=0.8," + languageParts[0] + ";q=0.6";
-        case 3:
-            // TODO: How to display Cyrillic or Latin versions of the same language???
-    }
+	// NOTE: TOR Browser uses American English
+	return "en-US,en;q=0.5";
 }
 function getAuthorizationHeader(origin) {
 	return "NotYetImplemented";
@@ -86,19 +76,8 @@ function getTEHeader(origin) {
 }
 function getUserAgentHeader(origin) {
     Math.seedrandom(origin);
-    const randomBrowser = randomNumber(0, 5);
-    switch (randomBrowser) {
-        case 0:
-            return ieUserAgents[randomNumber(0, ieUserAgents.length)];
-        case 1:
-            return firefoxUserAgents[randomNumber(0, firefoxUserAgents.length)];
-        case 2:
-            return chromeUserAgents[randomNumber(0, chromeUserAgents.length)];
-        case 3:
-            return safariUserAgents[randomNumber(0, safariUserAgents.length)];
-        case 4:
-            return operaUserAgents[randomNumber(0, operaUserAgents.length)];
-    }
+
+	return userAgents[randomNumber(0, userAgents.length)];
 }
 
 function rewriteHttpHeaders(e) {
