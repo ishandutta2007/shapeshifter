@@ -1,56 +1,57 @@
 "use strict";
 
-function getAcceptHeader(origin) {
+// Methods to get HTTP headers
+function getAcceptHeader(seed) {
 	return "NotYetImplemented";
 }
-function getAcceptCharsetHeader(origin) {
+function getAcceptCharsetHeader(seed) {
 	return "NotYetImplemented";
 }
-function getAcceptEncodingHeader(origin) {
+function getAcceptEncodingHeader(seed) {
 	return "NotYetImplemented";
 }
-function getAcceptLanguageHeader(origin) {
+function getAcceptLanguageHeader(seed) {
 	// NOTE: TOR Browser uses American English
 	return "en-US,en;q=0.5";
 }
-function getAuthorizationHeader(origin) {
+function getAuthorizationHeader(seed) {
 	return "NotYetImplemented";
 }
-function getExpectHeader(origin) {
+function getExpectHeader(seed) {
 	return "NotYetImplemented";
 }
-function getFromHeader(origin) {
+function getFromHeader(seed) {
 	return "NotYetImplemented";
 }
-function getHostHeader(origin) {
+function getHostHeader(seed) {
 	return "NotYetImplemented";
 }
-function getIfMatchHeader(origin) {
+function getIfMatchHeader(seed) {
 	return "NotYetImplemented";
 }
-function getIfModifiedSinceHeader(origin) {
+function getIfModifiedSinceHeader(seed) {
 	return "NotYetImplemented";
 }
-function getIfNoneMatchHeader(origin) {
+function getIfNoneMatchHeader(seed) {
 	return "NotYetImplemented";
 }
-function getIfRangeHeader(origin) {
+function getIfRangeHeader(seed) {
 	return "NotYetImplemented";
 }
-function getIfUnmodifiedSinceHeader(origin) {
+function getIfUnmodifiedSinceHeader(seed) {
 	return "NotYetImplemented";
 }
-function getMaxForwardsHeader(origin) {
+function getMaxForwardsHeader(seed) {
 	return "NotYetImplemented";
 }
-function getProxyAuthorizationHeader(origin) {
+function getProxyAuthorizationHeader(seed) {
 	return "NotYetImplemented";
 }
-function getRangeHeader(origin) {
+function getRangeHeader(seed) {
 	return "NotYetImplemented";
 }
-function getRefererHeader(origin) {
-    Math.seedrandom(origin);
+function getRefererHeader(seed) {
+    Math.seedrandom(seed);
 
     const firstWord = words[randomNumber(0, words.length)];
     const secondWord = words[randomNumber(0, words.length)];
@@ -71,18 +72,40 @@ function getRefererHeader(origin) {
 
     return referrer;
 }
-function getTEHeader(origin) {
+function getTEHeader(seed) {
 	return "NotYetImplemented";
 }
-function getUserAgentHeader(origin) {
-    Math.seedrandom(origin);
+function getUserAgentHeader(seed) {
+    Math.seedrandom(seed);
 
 	return userAgents[randomNumber(0, userAgents.length)];
 }
 
 function rewriteHttpHeaders(e) {
+	// Create URL object from url string
     var serverUrl = new URL(e.url);
+
+	// Get the origin (hostname)
     var origin = serverUrl.hostname;
+
+	// Get a Storage object
+	var storage = window.sessionStorage;
+
+	// Do we already have a seed in sessionStorage for this origin or not?
+	var seed = storage.getItem(origin);
+
+	if (seed === null) {
+		// Initialise a 32 byte buffer
+		seed = new Uint8Array(32);
+
+		// Fill it with cryptographically random values
+		window.crypto.getRandomValues(seed);
+
+		// Save it to sessionStorage
+		storage.setItem(origin, seed);
+	}
+
+	console.log("Background - Seed for origin " + origin + ": " + seed);
 
 	for (var header of e.requestHeaders) {
 		if (header.name.toLowerCase() === "accept") {
@@ -92,7 +115,7 @@ function rewriteHttpHeaders(e) {
 		else if (header.name.toLowerCase() === "accept-encoding") {
 		}
 		else if (header.name.toLowerCase() === "accept-language") {
-            header.value = getAcceptLanguageHeader(origin);
+            header.value = getAcceptLanguageHeader(seed);
 		}
 		else if (header.name.toLowerCase() === "authorization") {
 		}
@@ -119,16 +142,24 @@ function rewriteHttpHeaders(e) {
 		else if (header.name.toLowerCase() === "range") {
 		}
 		else if (header.name.toLowerCase() === "referer") {
-			header.value = getRefererHeader(origin);
+			header.value = getRefererHeader(seed);
 		}
 		else if (header.name.toLowerCase() === "te") {
 		}
 		else if (header.name.toLowerCase() === "user-agent") {
-			header.value = getUserAgentHeader(origin);
+			header.value = getUserAgentHeader(seed);
 		}
 	}
 
 	return {requestHeaders: e.requestHeaders};
 }
 
+// Listen for HTTP requests
 chrome.webRequest.onBeforeSendHeaders.addListener(rewriteHttpHeaders, {urls: ["<all_urls>"]}, ["blocking", "requestHeaders"]);
+
+// Content scripts need to know what seed to use for the PRNG
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+	var storage = window.sessionStorage;
+	var seed = storage.getItem(request.hostname);
+	sendResponse({"seed": seed});
+});

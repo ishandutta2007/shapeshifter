@@ -1,11 +1,9 @@
 (function() {
     'use strict';
 
-    function fakeLength(origin) { Math.seedrandom(origin); return randomNumber(0, 256); }
+    function fakeLength(seed) { Math.seedrandom(seed); return randomNumber(0, 256); }
 
-    const origin = window.location.hostname;
-
-    const fakeLengthValue = fakeLength(origin);
+    const fakeLengthValue = fakeLength(seed);
 
     Object.defineProperties(window.history, {
         length: {

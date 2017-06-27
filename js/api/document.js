@@ -1,9 +1,14 @@
 (function() {
     'use strict';
 
-    function fakeReferrer(origin) {
+    // TODO: The javascript referrer is set to a fake value even when the HTTP header is not set.
+    // TODO: They should always have the same value, even if both have no value.
+    // TODO: Either force a fake HTTP referer header or check to see if the javascript one has a
+    // TODO: value first before faking it.
 
-        Math.seedrandom(origin);
+    // TODO: Also review whether it is a good idea to be spoofing the referrer in the first place?
+    function fakeReferrer(seed) {
+        Math.seedrandom(seed);
 
         const firstWord = words[randomNumber(0, words.length)];
         const secondWord = words[randomNumber(0, words.length)];
@@ -25,9 +30,7 @@
         return referrer;
     }
 
-    const origin = window.location.hostname;
-
-    const fakeReferrerValue = fakeReferrer(origin);
+    const fakeReferrerValue = fakeReferrer(seed);
 
     Object.defineProperties(window.document, {
         referrer: {

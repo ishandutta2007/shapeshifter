@@ -2,51 +2,86 @@ function inject(filePath, callback) {
     var script = document.createElement('script');
     script.src = chrome.extension.getURL(filePath);
     script.onload = function() {
-        this.remove();
+        this.remove(); //TODO: What does this actually do?
     };
     (document.head || document.documentElement).appendChild(script);
 
     callback();
 }
 
-inject("js/ua.js", function() {
+// TODO: Investigate possible race conditions with script injection
+// TODO: Page seems to be able to get values before they can be spoofed
+// TODO: Still not sure why?
 
-    console.log("[INFO] Injected UA ...");
+const origin = window.location.hostname;
 
-    inject("js/words.js", function() {
+chrome.runtime.sendMessage({"hostname": origin}, function(response) {
+    console.log("Content - Seed for origin " + origin + ": " + response.seed);
 
-        console.log("[INFO] Injected Words ...");
-
-        inject("js/lib/seedrandom.min.js", function() {
-
-            console.log("[INFO] Injected Seed Random ...");
-
-            inject("js/random.js", function() {
-
-                console.log("[INFO] Injected Random ...");
-
-                inject("js/api/document.js", function() {
-                    console.log("[INFO] Injected Document API ...");
-                });
-                inject("js/api/navigator.js", function() {
-                    console.log("[INFO] Injected Navigator API ...");
-                });
-                inject("js/api/canvas.js", function() {
-                    console.log("[INFO] Injected Canvas API ...");
-                });
-                inject("js/api/history.js", function() {
-                    console.log("[INFO] Injected History API ...");
-                });
-                inject("js/api/battery.js", function() {
-                    console.log("[INFO] Injected Battery API ...");
-                });
-                inject("js/api/audio.js", function() {
-                    console.log("[INFO] Injected Audio API ...");
-                });
-                inject("js/api/element.js", function() {
-                    console.log("[INFO] Injected Element API ...");
-                });
-            });
-        });
-    });
+    // TODO: This looks messy, perhaps clean it up a bit?
+    var seedScript = "const seed = '" + response.seed + "';";
+    var script = document.createElement('script');
+    script.textContent = seedScript;
+    (document.head || document.documentElement).appendChild(script);
+    script.remove();
+    injectSeedJsCallback();
 });
+
+function injectSeedJsCallback() {
+    console.log("[INFO] Injected Seed");
+    inject("js/ua.js", injectUaJsCallback);
+}
+
+function injectUaJsCallback() {
+    console.log("[INFO] Injected UA ...");
+    inject("js/words.js", injectWordsJsCallback);
+}
+
+function injectWordsJsCallback() {
+    console.log("[INFO] Injected Words ...");
+    inject("js/lib/seedrandom.min.js", injectSeedRandomJsCallback);
+}
+
+function injectSeedRandomJsCallback() {
+    console.log("[INFO] Injected Seed Random ...");
+    inject("js/random.js", injectRandomJsCallback);
+}
+
+function injectRandomJsCallback() {
+    console.log("[INFO] Injected Random ...");
+    inject("js/api/document.js", injectDocumentJsCallback);
+    inject("js/api/navigator.js", injectNavigatorJsCallback);
+    inject("js/api/canvas.js", injectCanvasJsCallback);
+    inject("js/api/history.js", injectHistoryJsCallback);
+    inject("js/api/battery.js", injectBatteryJsCallback);
+    inject("js/api/audio.js", injectAudioJsCallback);
+    inject("js/api/element.js", injectElementJsCallback);
+}
+
+function injectDocumentJsCallback() {
+    console.log("[INFO] Injected Document API ...");
+}
+
+function injectNavigatorJsCallback() {
+    console.log("[INFO] Injected Navigator API ...");
+}
+
+function injectCanvasJsCallback() {
+    console.log("[INFO] Injected Canvas API ...");
+}
+
+function injectHistoryJsCallback() {
+    console.log("[INFO] Injected History API ...");
+}
+
+function injectBatteryJsCallback() {
+    console.log("[INFO] Injected Battery API ...");
+}
+
+function injectAudioJsCallback() {
+    console.log("[INFO] Injected Audio API ...");
+}
+
+function injectElementJsCallback() {
+    console.log("[INFO] Injected Element API ...");
+}

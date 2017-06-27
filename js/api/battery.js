@@ -1,17 +1,15 @@
 (function() {
     'use strict';
 
-    function fakeCharging(origin) {           Math.seedrandom(origin); return randomBoolean(); }
-    function fakeChargingTime(origin) {       Math.seedrandom(origin); return randomNumber(0, 9999); }
-    function fakeDischargingTime(origin) {    Math.seedrandom(origin); return randomNumber(0, 9999); }
-    function fakeLevel(origin) {              Math.seedrandom(origin); return randomNumber(0, 2); }
+    function fakeCharging(seed) {           Math.seedrandom(seed); return randomBoolean(); }
+    function fakeChargingTime(seed) {       Math.seedrandom(seed); return randomNumber(0, 9999); }
+    function fakeDischargingTime(seed) {    Math.seedrandom(seed); return randomNumber(0, 9999); }
+    function fakeLevel(seed) {              Math.seedrandom(seed); return randomNumber(0, 2); }
 
-    const origin = window.location.hostname;
-
-    const fakeChargingValue        = fakeCharging(origin);
-    const fakeChargingTimeValue    = fakeChargingTime(origin);
-    const fakeDischargingValue     = fakeDischargingTime(origin);
-    const fakeLevelValue           = fakeLevel(origin);
+    const fakeChargingValue        = fakeCharging(seed);
+    const fakeChargingTimeValue    = fakeChargingTime(seed);
+    const fakeDischargingValue     = fakeDischargingTime(seed);
+    const fakeLevelValue           = fakeLevel(seed);
 
     Object.defineProperties(BatteryManager.prototype, {
         charging: {

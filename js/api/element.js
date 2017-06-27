@@ -7,17 +7,15 @@
 
     // Fake data for a DOMRect object
     function fakeRectangleData(rectangle) {
-        const origin = window.location.hostname;
-
-        Math.seedrandom(origin);
+        Math.seedrandom(seed);
 
         if (!rectangle.hasOwnProperty('x')) {
-            console.log("No x");
+            // TODO: Object.defineProperty() ?
             rectangle.x = rectangle.left;
         }
 
         if (!rectangle.hasOwnProperty('y')) {
-            console.log("No y");
+            // TODO: Object.defineProperty() ?
             rectangle.y = rectangle.top;
         }
 

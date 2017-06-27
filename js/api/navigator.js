@@ -1,65 +1,73 @@
 (function() {
     'use strict';
 
-    function fakeActiveVRDisplays(origin) {       Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeAppCodeName(origin) {            Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeAppName(origin) {                Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    const origin = window.location.hostname;
+
+    console.log("Page - Seed for origin " + origin + ": " + seed);
+
+    function fakeActiveVRDisplays(seed) {       Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    function fakeAppCodeName(seed) {            Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    function fakeAppName(seed) {                Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
 
     // TODO: Is always returning "5.0" safe?
-    function fakeAppVersion(origin) {
+    function fakeAppVersion(seed) {
         return "5.0";
     }
-    function fakeBattery(origin) {                Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeConnection(origin) {             Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeGeoLocation(origin) {            Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeHardwareConcurrency(origin) {    Math.seedrandom(origin); return randomNumber(0, 9); }
-    function fakeJavaEnabled(origin) {            Math.seedrandom(origin); return randomBoolean(); }
-    function fakeLanguage(origin) {
+    function fakeBattery(seed) {                Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    function fakeConnection(seed) {             Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    function fakeGeoLocation(seed) {            Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    function fakeHardwareConcurrency(seed) {    Math.seedrandom(seed); return randomNumber(0, 9); }
+    function fakeJavaEnabled(seed) {            Math.seedrandom(seed); return randomBoolean(); }
+    function fakeLanguage(seed) {
         // NOTE: TOR Browser uses American English
         return "en-US";
     }
-    function fakeLanguages(origin) {
+    function fakeLanguages(seed) {
         // NOTE: TOR Browser uses American English
         return "en-US,en";
     }
-    function fakeMimeTypes(origin) {              Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeOnLine(origin) {                 Math.seedrandom(origin); return randomBoolean(); }
-    function fakeOscpu(origin) {                  Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakePermissions(origin) {            Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakePlatform(origin) {               Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakePlugins(origin) {                Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeProduct(origin) {                Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeServiceWorker(origin) {          Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeStorage(origin) {                Math.seedrandom(origin); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeUserAgent(origin) {
-        Math.seedrandom(origin);
+    function fakeMimeTypes(seed) {              Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    function fakeOnLine(seed) {                 Math.seedrandom(seed); return randomBoolean(); }
+    function fakeOscpu(seed) {                  Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    function fakePermissions(seed) {            Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    function fakePlatform(seed) {               Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    function fakePlugins(seed) {
+        Math.seedrandom(seed);
+
+        var pluginsList = window.navigator.plugins;
+
+        return pluginsList;
+    }
+    function fakeProduct(seed) {                Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    function fakeServiceWorker(seed) {          Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    function fakeStorage(seed) {                Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    function fakeUserAgent(seed) {
+        Math.seedrandom(seed);
 
     	return userAgents[randomNumber(0, userAgents.length)];
     }
 
-    const origin = window.location.hostname;
-
-    const fakeActiveVRDisplaysValue       = fakeActiveVRDisplays(origin);
-    const fakeAppCodeNameValue            = fakeAppCodeName(origin);
-    const fakeAppNameValue                = fakeAppName(origin);
-    const fakeAppVersionValue             = fakeAppVersion(origin);
-    const fakeBatteryValue                = fakeBattery(origin);
-    const fakeConnectionValue             = fakeConnection(origin);
-    const fakeGeoLocationValue            = fakeGeoLocation(origin);
-    const fakeHardwareConcurrencyValue    = fakeHardwareConcurrency(origin);
-    const fakeJavaEnabledValue            = fakeJavaEnabled(origin);
-    const fakeLanguageValue               = fakeLanguage(origin);
-    const fakeLanguagesValue              = fakeLanguages(origin);
-    const fakeMimeTypesValue              = fakeMimeTypes(origin);
-    const fakeOnLineValue                 = fakeOnLine(origin);
-    const fakeOscpuValue                  = fakeOscpu(origin);
-    const fakePermissionsValue            = fakePermissions(origin);
-    const fakePlatformValue               = fakePlatform(origin);
-    const fakePluginsValue                = fakePlugins(origin);
-    const fakeProductValue                = fakeProduct(origin);
-    const fakeServiceWorkerValue          = fakeServiceWorker(origin);
-    const fakeStorageValue                = fakeStorage(origin);
-    const fakeUserAgentValue              = fakeUserAgent(origin);
+    const fakeActiveVRDisplaysValue       = fakeActiveVRDisplays(seed);
+    const fakeAppCodeNameValue            = fakeAppCodeName(seed);
+    const fakeAppNameValue                = fakeAppName(seed);
+    const fakeAppVersionValue             = fakeAppVersion(seed);
+    const fakeBatteryValue                = fakeBattery(seed);
+    const fakeConnectionValue             = fakeConnection(seed);
+    const fakeGeoLocationValue            = fakeGeoLocation(seed);
+    const fakeHardwareConcurrencyValue    = fakeHardwareConcurrency(seed);
+    const fakeJavaEnabledValue            = fakeJavaEnabled(seed);
+    const fakeLanguageValue               = fakeLanguage(seed);
+    const fakeLanguagesValue              = fakeLanguages(seed);
+    const fakeMimeTypesValue              = fakeMimeTypes(seed);
+    const fakeOnLineValue                 = fakeOnLine(seed);
+    const fakeOscpuValue                  = fakeOscpu(seed);
+    const fakePermissionsValue            = fakePermissions(seed);
+    const fakePlatformValue               = fakePlatform(seed);
+    const fakePluginsValue                = fakePlugins(seed);
+    const fakeProductValue                = fakeProduct(seed);
+    const fakeServiceWorkerValue          = fakeServiceWorker(seed);
+    const fakeStorageValue                = fakeStorage(seed);
+    const fakeUserAgentValue              = fakeUserAgent(seed);
 
     Object.defineProperties(window.navigator, {
         /*
@@ -174,6 +182,8 @@
                 return fakeLanguagesValue;
             }
         },
+
+        /*
         mimeTypes: {
             configurable: false,
             enumerable: true,
@@ -183,8 +193,6 @@
                 return fakeMimeTypesValue;
             }
         },
-
-        /*
         onLine: {
             configurable: false,
             enumerable: true,
@@ -276,5 +284,5 @@
                 return fakeUserAgentValue;
             }
         }
-            });
+    });
 })();

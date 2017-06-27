@@ -9,9 +9,7 @@
 
     // Fake data from an ArrayBufferView object
     function fakeAudioData(data) {
-        const origin = window.location.hostname;
-
-        Math.seedrandom(origin);
+        Math.seedrandom(seed);
 
         // TODO: Need a faster and more effective spoofing algorithm
         // TODO: Could the value be cached?

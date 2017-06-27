@@ -17,9 +17,7 @@
 
     // Fake data from an ImageData object
     function fakeImageData(image) {
-        const origin = window.location.hostname;
-
-        Math.seedrandom(origin);
+        Math.seedrandom(seed);
 
         // TODO: Need a faster and more effective spoofing algorithm
         // TODO: Could the value be cached?
@@ -32,9 +30,7 @@
 
     // Fake data from an ArrayBufferView object
     function fakePixelData(pixels) {
-        const origin = window.location.hostname;
-
-        Math.seedrandom(origin);
+        Math.seedrandom(seed);
 
         // TODO: Need a faster and more effective spoofing algorithm
         // TODO: Could the value be cached?
@@ -76,6 +72,7 @@
         }
         else if (ctx instanceof ImageBitmapRenderingContext) {
             // No methods for pixel data extraction. Nothing to do here ...
+            // TODO: variable pixels should still be initialised to something here
         }
 
         // Fake the underlying pixel data
