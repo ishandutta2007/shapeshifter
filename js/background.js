@@ -50,27 +50,13 @@ function getProxyAuthorizationHeader(seed) {
 function getRangeHeader(seed) {
 	return "NotYetImplemented";
 }
-function getRefererHeader(seed) {
-    Math.seedrandom(seed);
+function getRefererHeader() {
+	// NOTE: From https://developer.mozilla.org/en-US/docs/Web/API/Document/referrer
+	// NOTE: The value is an empty string if the user navigated to the page directly (not through a link, but, for example, via a bookmark).
+	// NOTE: Since this property returns only a string, it does not give you DOM access to the referring page.
 
-    const firstWord = words[randomNumber(0, words.length)];
-    const secondWord = words[randomNumber(0, words.length)];
-    const thirdWord = words[randomNumber(0, words.length)];
-    const firstDirName = words[randomNumber(0, words.length)];
-    const secondDirName = words[randomNumber(0, words.length)];
-    const thirdDirName = words[randomNumber(0, words.length)];
-
-    const protocols = ["https", "http"];
-
-    const protocol = protocols[randomNumber(0, protocols.length)];
-
-    const tlds = ["com", "net", "org", "gov", "info", "xxx"];
-
-    const tld = tlds[randomNumber(0, tlds.length)];
-
-    const referrer = protocol + "://www." + firstWord + secondWord + thirdWord + "." + tld + "/" + firstDirName + "/" + secondDirName + "/" + thirdDirName;
-
-    return referrer;
+	// NOTE: Make websites think we always go to them directly rather than being referred.
+	return "";
 }
 function getTEHeader(seed) {
 	return "NotYetImplemented";
@@ -89,9 +75,9 @@ function rewriteHttpHeaders(e) {
     var origin = serverUrl.hostname;
 
 	// Get a Storage object
-	var storage = window.sessionStorage;
+	var storage = window.localStorage;
 
-	// Do we already have a seed in sessionStorage for this origin or not?
+	// Do we already have a seed in storage for this origin or not?
 	var seed = storage.getItem(origin);
 
 	if (seed === null) {
@@ -101,7 +87,7 @@ function rewriteHttpHeaders(e) {
 		// Fill it with cryptographically random values
 		window.crypto.getRandomValues(seed);
 
-		// Save it to sessionStorage
+		// Save it to storage
 		storage.setItem(origin, seed);
 	}
 
@@ -142,7 +128,7 @@ function rewriteHttpHeaders(e) {
 		else if (header.name.toLowerCase() === "range") {
 		}
 		else if (header.name.toLowerCase() === "referer") {
-			header.value = getRefererHeader(seed);
+			header.value = getRefererHeader();
 		}
 		else if (header.name.toLowerCase() === "te") {
 		}
@@ -159,7 +145,7 @@ chrome.webRequest.onBeforeSendHeaders.addListener(rewriteHttpHeaders, {urls: ["<
 
 // Content scripts need to know what seed to use for the PRNG
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	var storage = window.sessionStorage;
+	var storage = window.localStorage;
 	var seed = storage.getItem(request.hostname);
 	sendResponse({"seed": seed});
 });

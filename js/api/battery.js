@@ -1,6 +1,9 @@
 (function() {
     'use strict';
 
+    // NOTE: Mozilla Firefox has disabled the Battery Status API as of Firefox 52
+    // NOTE: Chrome/Chromium probably still has it enabled.
+
     function fakeCharging(seed) {           Math.seedrandom(seed); return randomBoolean(); }
     function fakeChargingTime(seed) {       Math.seedrandom(seed); return randomNumber(0, 9999); }
     function fakeDischargingTime(seed) {    Math.seedrandom(seed); return randomNumber(0, 9999); }

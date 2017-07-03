@@ -36,6 +36,7 @@
 
         var pluginsList = window.navigator.plugins;
 
+        // TODO: Fake plugins?
         return pluginsList;
     }
     function fakeProduct(seed) {                Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
@@ -235,6 +236,8 @@
                 return fakePlatformValue;
             }
         },
+
+        /*
         plugins: {
             configurable: false,
             enumerable: true,
@@ -244,8 +247,6 @@
                 return fakePluginsValue;
             }
         },
-
-        /*
         product: {
             configurable: false,
             enumerable: true,

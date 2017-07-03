@@ -2,7 +2,7 @@ function inject(filePath, callback) {
     var script = document.createElement('script');
     script.src = chrome.extension.getURL(filePath);
     script.onload = function() {
-        this.remove(); //TODO: What does this actually do?
+        //this.remove(); //TODO: What does this actually do?
     };
     (document.head || document.documentElement).appendChild(script);
 
@@ -20,10 +20,16 @@ chrome.runtime.sendMessage({"hostname": origin}, function(response) {
 
     // TODO: This looks messy, perhaps clean it up a bit?
     var seedScript = "const seed = '" + response.seed + "';";
+
+    console.log(seedScript);
+
     var script = document.createElement('script');
     script.textContent = seedScript;
+    script.onload = function() {
+        //this.remove(); //TODO: What does this actually do?
+    };
     (document.head || document.documentElement).appendChild(script);
-    script.remove();
+
     injectSeedJsCallback();
 });
 

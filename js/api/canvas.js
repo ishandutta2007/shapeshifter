@@ -50,33 +50,24 @@
             HTMLCanvasElement.prototype.getContext.call(canvas, "webgl2") ||
             HTMLCanvasElement.prototype.getContext.call(canvas, "experimental-webgl2");
 
-        var pixels;
+        var image;
 
         // Extract the pixel data. Method varies depending on the rendering context's type
         if (ctx instanceof CanvasRenderingContext2D) {
-            var image = originalGetImageData.call(ctx, 0, 0, canvas.width, canvas.height);
-            pixels = image.data;
+            image = originalGetImageData.call(ctx, 0, 0, canvas.width, canvas.height);
         }
         else if (ctx instanceof WebGLRenderingContext || ctx instanceof WebGL2RenderingContext) {
-            // TODO: Improve memory usage (particularly for WebGL).
-            // TODO: Is it really necessary to recreate the same data
-            // TODO: in a Uint8Array, Uint8ClampedArray or ImageData Object
-            // TODO: or can we just cut the fat?
-            var image = new ImageData(canvas.width, canvas.height);
-            var data = new Uint8Array(image.data.length);
-            originalReadPixels.call(ctx, 0, 0, canvas.width, canvas.height, ctx.RGBA, ctx.UNSIGNED_BYTE, data);
-            pixels = new Uint8ClampedArray(image.data.length);
-            for (var i = 0; i < pixels.length; i++) {
-                pixels[i] = data[i];
-            }
+            image = new ImageData(canvas.width, canvas.height);
+            var pixels = new Uint8ClampedArray(image.data.length);
+            originalReadPixels.call(ctx, 0, 0, canvas.width, canvas.height, ctx.RGBA, ctx.UNSIGNED_BYTE, pixels);
+            image.data = pixels;
         }
         else if (ctx instanceof ImageBitmapRenderingContext) {
             // No methods for pixel data extraction. Nothing to do here ...
-            // TODO: variable pixels should still be initialised to something here
         }
 
         // Fake the underlying pixel data
-        var fakePixels = fakePixelData(pixels);
+        var fakeImage = fakeImageData(image);
 
         // Create a deep copy (clone) of the canvas
         var fakeCanvas = canvas.cloneNode(true);
@@ -84,11 +75,8 @@
         // Get a 2D context to draw on the fake canvas
         var fakeCtx = fakeCanvas.getContext("2d");
 
-        // Build a new ImageData object using the fake pixel data
-        var image = new ImageData(fakePixels, canvas.width, canvas.height);
-
         // Obscure the canvas with fake pixel data
-        fakeCtx.putImageData(image, 0, 0);
+        fakeCtx.putImageData(fakeImage, 0, 0);
 
         return fakeCanvas;
     }

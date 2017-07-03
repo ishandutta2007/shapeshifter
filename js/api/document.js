@@ -1,36 +1,16 @@
 (function() {
     'use strict';
 
-    // TODO: The javascript referrer is set to a fake value even when the HTTP header is not set.
-    // TODO: They should always have the same value, even if both have no value.
-    // TODO: Either force a fake HTTP referer header or check to see if the javascript one has a
-    // TODO: value first before faking it.
+    function fakeReferrer() {
+        // NOTE: From https://developer.mozilla.org/en-US/docs/Web/API/Document/referrer
+    	// NOTE: The value is an empty string if the user navigated to the page directly (not through a link, but, for example, via a bookmark).
+    	// NOTE: Since this property returns only a string, it does not give you DOM access to the referring page.
 
-    // TODO: Also review whether it is a good idea to be spoofing the referrer in the first place?
-    function fakeReferrer(seed) {
-        Math.seedrandom(seed);
-
-        const firstWord = words[randomNumber(0, words.length)];
-        const secondWord = words[randomNumber(0, words.length)];
-        const thirdWord = words[randomNumber(0, words.length)];
-        const firstDirName = words[randomNumber(0, words.length)];
-        const secondDirName = words[randomNumber(0, words.length)];
-        const thirdDirName = words[randomNumber(0, words.length)];
-
-        const protocols = ["https", "http"];
-
-        const protocol = protocols[randomNumber(0, protocols.length)];
-
-        const tlds = ["com", "net", "org", "gov", "info", "xxx"];
-
-        const tld = tlds[randomNumber(0, tlds.length)];
-
-        const referrer = protocol + "://www." + firstWord + secondWord + thirdWord + "." + tld + "/" + firstDirName + "/" + secondDirName + "/" + thirdDirName;
-
-        return referrer;
+    	// NOTE: Make websites think we always go to them directly rather than being referred.
+    	return "";
     }
 
-    const fakeReferrerValue = fakeReferrer(seed);
+    const fakeReferrerValue = fakeReferrer();
 
     Object.defineProperties(window.document, {
         referrer: {

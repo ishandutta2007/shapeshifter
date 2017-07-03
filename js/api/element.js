@@ -10,12 +10,10 @@
         Math.seedrandom(seed);
 
         if (!rectangle.hasOwnProperty('x')) {
-            // TODO: Object.defineProperty() ?
             rectangle.x = rectangle.left;
         }
 
         if (!rectangle.hasOwnProperty('y')) {
-            // TODO: Object.defineProperty() ?
             rectangle.y = rectangle.top;
         }
 
