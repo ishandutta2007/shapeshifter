@@ -26,4 +26,109 @@ Enjoy :)
 
 ## Releases
 
-When I am confident that this extension has implemented enough functionality to be considered good enough for an initial release, I will upload it to the Google Chrome Web Store and the Mozilla Firefox Addons Site.
+When I am confident that this extension has implemented enough functionality to be considered good enough for an initial release, I will upload it to the Google Chrome Web Store and the Mozilla Firefox Addons Site.  
+
+## Features
+
+Only the features listed here are implemented by shape shifter. If you do not see a feature, do NOT assume it is implemented:  
+
+### HTTP Headers
+
+The following headers are spoofed by shape shifter:
+
+- Accept-Language
+- Referer
+- User-Agent
+
+### Javascript API's
+
+The following javascript objects/classes are spoofed by shape shifter
+
+Navigator
+
+| Property / Function | Spoofed |
+|----------------------|----------------------|
+| activeVRDisplays     | NO                   |
+| appCodeName          | YES                  |
+| appName              | YES                  |
+| appVersion           | YES                  |
+| battery              | NO                   |
+| connection           | NO                   |
+| geolocation          | NO                   |
+| hardwareConcurrency  | YES                  |
+| javaEnabled          | YES                  |
+| language             | YES                  |
+| languages            | YES                  |
+| mimeTypes            | NO                   |
+| onLine               | YES                  |
+| oscpu                | YES                  |
+| permissions          | NO                   |
+| platform             | YES                  |
+| plugins              | NO                   |
+| product              | YES                  |
+| serviceWorker        | NO                   |
+| storage              | NO                   |
+| userAgent            | YES                  |
+
+History
+
+| Property / Function | Spoofed |
+|----------------------|----------------------|
+| length               | YES                  |
+
+Document
+
+| Property / Function | Spoofed |
+|----------------------|----------------------|
+| referrer             | YES                  |
+
+AnalyserNode
+
+| Property / Function | Spoofed |
+|--------------------------|----------------------|
+| getFloatFrequencyData()  | YES                  |
+| getByteFrequencyData()   | YES                  |
+| getFloatTimeDomainData() | YES                  |
+| getByteTimeDomainData()  | YES                  |
+
+BatteryManager
+
+| Property / Function | Spoofed |
+|----------------------|----------------------|
+| charging             | YES                  |
+| chargingTime         | YES                  |
+| dischargingTime      | YES                  |
+| level                | YES                  |
+
+HTMLCanvasElement
+
+| Property / Function | Spoofed |
+|----------------------|----------------------|
+| toDataURL()          | YES                  |
+| toBlob()             | YES                  |
+| mozGetAsFile()       | YES                  |
+
+CanvasRenderingContext2D
+
+| Property / Function | Spoofed |
+|----------------------|----------------------|
+| getImageData()       | YES                  |
+
+WebGLRenderingContext
+
+| Property / Function | Spoofed |
+|----------------------|----------------------|
+| readPixels()         | YES                  |
+
+WebGL2RenderingContext
+
+| Property / Function | Spoofed |
+|----------------------|----------------------|
+| readPixels()         | YES                  |
+
+Element
+
+| Property / Function | Spoofed |
+|-------------------------|----------------------|
+| getClientRects()        | YES                  |
+| getBoundingClientRect() | YES                  |
