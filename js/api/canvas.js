@@ -58,12 +58,15 @@
         }
         else if (ctx instanceof WebGLRenderingContext || ctx instanceof WebGL2RenderingContext) {
             image = new ImageData(canvas.width, canvas.height);
+            // TODO: Do we need to create a new array here?
+            // TODO: How about just passing image.data to readPixels() directly?
             var pixels = new Uint8ClampedArray(image.data.length);
             originalReadPixels.call(ctx, 0, 0, canvas.width, canvas.height, ctx.RGBA, ctx.UNSIGNED_BYTE, pixels);
             image.data = pixels;
         }
         else if (ctx instanceof ImageBitmapRenderingContext) {
             // No methods for pixel data extraction. Nothing to do here ...
+            // TODO: How to initialise image variable?
         }
 
         // Fake the underlying pixel data

@@ -1,93 +1,74 @@
-function inject(filePath, callback) {
-    var script = document.createElement('script');
-    script.src = chrome.extension.getURL(filePath);
-    script.onload = function() {
-        //this.remove(); //TODO: What does this actually do?
-    };
-    (document.head || document.documentElement).appendChild(script);
+console.log("Content Script Running ...");
 
-    callback();
+function inject(filePath) {
+  var script = document.createElement('script');
+  script.src = chrome.extension.getURL(filePath);
+  script.onload = function() {
+    this.remove();
+  };
+  (document.head || document.documentElement).appendChild(script);
 }
 
-// TODO: Investigate possible race conditions with script injection
-// TODO: Page seems to be able to get values before they can be spoofed
-// TODO: Still not sure why?
-
-const origin = window.location.hostname;
-
-chrome.runtime.sendMessage({"hostname": origin}, function(response) {
-    console.log("Content - Seed for origin " + origin + ": " + response.seed);
-
-    // TODO: This looks messy, perhaps clean it up a bit?
-    var seedScript = "const seed = '" + response.seed + "';";
-
-    console.log(seedScript);
-
-    var script = document.createElement('script');
-    script.textContent = seedScript;
-    script.onload = function() {
-        //this.remove(); //TODO: What does this actually do?
-    };
-    (document.head || document.documentElement).appendChild(script);
-
-    injectSeedJsCallback();
-});
-
-function injectSeedJsCallback() {
-    console.log("[INFO] Injected Seed");
-    inject("js/ua.js", injectUaJsCallback);
+function injectText(text) {
+  var script = document.createElement('script');
+  script.textContent = text;
+  script.onload = function() {
+    this.remove();
+  };
+  (document.head || document.documentElement).appendChild(script);
 }
 
-function injectUaJsCallback() {
-    console.log("[INFO] Injected UA ...");
-    inject("js/words.js", injectWordsJsCallback);
+function getSeed(origin) {
+	// Get a Storage object
+	var storage = window.sessionStorage;
+
+	// Do we already have a seed in storage for this origin or not?
+	var seed = storage.getItem(origin);
+
+	if (seed === null) {
+		// Initialise a 32 byte buffer
+		seed = new Uint8Array(32);
+
+		// Fill it with cryptographically random values
+		window.crypto.getRandomValues(seed);
+
+		// Save it to storage
+		storage.setItem(origin, seed);
+	}
+
+	return seed;
 }
 
-function injectWordsJsCallback() {
-    console.log("[INFO] Injected Words ...");
-    inject("js/lib/seedrandom.min.js", injectSeedRandomJsCallback);
-}
+var origin = window.location.hostname;
 
-function injectSeedRandomJsCallback() {
-    console.log("[INFO] Injected Seed Random ...");
-    inject("js/random.js", injectRandomJsCallback);
-}
+var seed = getSeed(origin);
 
-function injectRandomJsCallback() {
-    console.log("[INFO] Injected Random ...");
-    inject("js/api/document.js", injectDocumentJsCallback);
-    inject("js/api/navigator.js", injectNavigatorJsCallback);
-    inject("js/api/canvas.js", injectCanvasJsCallback);
-    inject("js/api/history.js", injectHistoryJsCallback);
-    inject("js/api/battery.js", injectBatteryJsCallback);
-    inject("js/api/audio.js", injectAudioJsCallback);
-    inject("js/api/element.js", injectElementJsCallback);
-}
+injectText("var seed = '" + seed + "';");
+console.log("[INFO] Injected Seed ...");
 
-function injectDocumentJsCallback() {
-    console.log("[INFO] Injected Document API ...");
-}
+inject("js/lib/seedrandom.min.js");
+console.log("[INFO] Injected Seed Random ...");
 
-function injectNavigatorJsCallback() {
-    console.log("[INFO] Injected Navigator API ...");
-}
+inject("js/random.js");
+console.log("[INFO] Injected Random ...");
 
-function injectCanvasJsCallback() {
-    console.log("[INFO] Injected Canvas API ...");
-}
+inject("js/api/document.js");
+console.log("[INFO] Injected Document API ...");
 
-function injectHistoryJsCallback() {
-    console.log("[INFO] Injected History API ...");
-}
+inject("js/api/navigator.js");
+console.log("[INFO] Injected Navigator API ...");
 
-function injectBatteryJsCallback() {
-    console.log("[INFO] Injected Battery API ...");
-}
+inject("js/api/canvas.js");
+console.log("[INFO] Injected Canvas API ...");
 
-function injectAudioJsCallback() {
-    console.log("[INFO] Injected Audio API ...");
-}
+inject("js/api/history.js");
+console.log("[INFO] Injected History API ...");
 
-function injectElementJsCallback() {
-    console.log("[INFO] Injected Element API ...");
-}
+inject("js/api/battery.js");
+console.log("[INFO] Injected Battery API ...");
+
+inject("js/api/audio.js");
+console.log("[INFO] Injected Audio API ...");
+
+inject("js/api/element.js");
+console.log("[INFO] Injected Element API ...");

@@ -1,23 +1,26 @@
 (function() {
     'use strict';
 
-    const origin = window.location.hostname;
-
-    console.log("Page - Seed for origin " + origin + ": " + seed);
-
     function fakeActiveVRDisplays(seed) {       Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeAppCodeName(seed) {            Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeAppName(seed) {                Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    function fakeAppCodeName(seed) {
+      return "Mozilla";
+    }
+    function fakeAppName(seed) {
+      return "Netscape";
+    }
 
-    // TODO: Is always returning "5.0" safe?
     function fakeAppVersion(seed) {
-        return "5.0";
+        return "5.0 (Windows)";
     }
     function fakeBattery(seed) {                Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
     function fakeConnection(seed) {             Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
     function fakeGeoLocation(seed) {            Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeHardwareConcurrency(seed) {    Math.seedrandom(seed); return randomNumber(0, 9); }
-    function fakeJavaEnabled(seed) {            Math.seedrandom(seed); return randomBoolean(); }
+    function fakeHardwareConcurrency(seed) {
+      return 1;
+    }
+    function fakeJavaEnabled(seed) {
+      return false;
+    }
     function fakeLanguage(seed) {
         // NOTE: TOR Browser uses American English
         return "en-US";
@@ -27,25 +30,30 @@
         return "en-US,en";
     }
     function fakeMimeTypes(seed) {              Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeOnLine(seed) {                 Math.seedrandom(seed); return randomBoolean(); }
-    function fakeOscpu(seed) {                  Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakePermissions(seed) {            Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakePlatform(seed) {               Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakePlugins(seed) {
-        Math.seedrandom(seed);
-
-        var pluginsList = window.navigator.plugins;
-
-        // TODO: Fake plugins?
-        return pluginsList;
+    function fakeOnLine(seed) {
+      return true;
     }
-    function fakeProduct(seed) {                Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    function fakeOscpu(seed) {
+      return "Windows NT 6.1";
+    }
+    function fakePermissions(seed) {            Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
+    function fakePlatform(seed) {
+      return "Win32";
+    }
+    function fakePlugins(seed) {
+        return window.navigator.plugins;
+    }
+    function fakeProduct(seed) {
+      return "Gecko";
+    }
     function fakeServiceWorker(seed) {          Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
     function fakeStorage(seed) {                Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
     function fakeUserAgent(seed) {
-        Math.seedrandom(seed);
-
-    	return userAgents[randomNumber(0, userAgents.length)];
+      // NOTE: Current TOR User Agent as of 19 July 2017
+    	// NOTE: This will need constant updating.
+    	// NOTE: As TOR changes firefox versions each update,
+    	// NOTE: Shape Shifter will need to keep up.
+    	return "Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0";
     }
 
     const fakeActiveVRDisplaysValue       = fakeActiveVRDisplays(seed);
@@ -81,6 +89,8 @@
                 return fakeActiveVRDisplaysValue;
             }
         },
+        */
+
         appCodeName: {
             configurable: false,
             enumerable: true,
@@ -99,8 +109,6 @@
                 return fakeAppNameValue;
             }
         },
-        */
-
         appVersion: {
             configurable: false,
             enumerable: true,
@@ -151,20 +159,15 @@
                 return fakeHardwareConcurrencyValue;
             }
         },
-
-        // TODO: javaEnabled() is a method, not a property
-        /*
         javaEnabled: {
             configurable: false,
             enumerable: true,
-            get: function getJavaEnabled() {
+            value: function getJavaEnabled() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.javaEnabled");
 
                 return fakeJavaEnabledValue;
             }
         },
-        */
-
         language: {
             configurable: false,
             enumerable: true,
@@ -194,6 +197,8 @@
                 return fakeMimeTypesValue;
             }
         },
+        */
+
         onLine: {
             configurable: false,
             enumerable: true,
@@ -203,8 +208,6 @@
                 return fakeOnLineValue;
             }
         },
-        */
-
         oscpu: {
             configurable: false,
             enumerable: true,
@@ -247,6 +250,8 @@
                 return fakePluginsValue;
             }
         },
+        */
+
         product: {
             configurable: false,
             enumerable: true,
@@ -256,6 +261,8 @@
                 return fakeProductValue;
             }
         },
+
+        /*
         serviceWorker: {
             configurable: false,
             enumerable: true,

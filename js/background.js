@@ -1,5 +1,7 @@
 "use strict";
 
+console.log("Background Script Running ...");
+
 // Methods to get HTTP headers
 function getAcceptHeader(seed) {
 	return "NotYetImplemented";
@@ -10,7 +12,7 @@ function getAcceptCharsetHeader(seed) {
 function getAcceptEncodingHeader(seed) {
 	return "NotYetImplemented";
 }
-function getAcceptLanguageHeader(seed) {
+function getAcceptLanguageHeader() {
 	// NOTE: TOR Browser uses American English
 	return "en-US,en;q=0.5";
 }
@@ -61,38 +63,15 @@ function getRefererHeader() {
 function getTEHeader(seed) {
 	return "NotYetImplemented";
 }
-function getUserAgentHeader(seed) {
-    Math.seedrandom(seed);
-
-	return userAgents[randomNumber(0, userAgents.length)];
+function getUserAgentHeader() {
+	// NOTE: Current TOR User Agent as of 19 July 2017
+	// NOTE: This will need constant updating.
+	// NOTE: As TOR changes firefox versions each update,
+	// NOTE: Shape Shifter will need to keep up.
+	return "Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0";
 }
 
 function rewriteHttpHeaders(e) {
-	// Create URL object from url string
-    var serverUrl = new URL(e.url);
-
-	// Get the origin (hostname)
-    var origin = serverUrl.hostname;
-
-	// Get a Storage object
-	var storage = window.localStorage;
-
-	// Do we already have a seed in storage for this origin or not?
-	var seed = storage.getItem(origin);
-
-	if (seed === null) {
-		// Initialise a 32 byte buffer
-		seed = new Uint8Array(32);
-
-		// Fill it with cryptographically random values
-		window.crypto.getRandomValues(seed);
-
-		// Save it to storage
-		storage.setItem(origin, seed);
-	}
-
-	console.log("Background - Seed for origin " + origin + ": " + seed);
-
 	for (var header of e.requestHeaders) {
 		if (header.name.toLowerCase() === "accept") {
 		}
@@ -101,7 +80,7 @@ function rewriteHttpHeaders(e) {
 		else if (header.name.toLowerCase() === "accept-encoding") {
 		}
 		else if (header.name.toLowerCase() === "accept-language") {
-            header.value = getAcceptLanguageHeader(seed);
+            header.value = getAcceptLanguageHeader();
 		}
 		else if (header.name.toLowerCase() === "authorization") {
 		}
@@ -133,19 +112,11 @@ function rewriteHttpHeaders(e) {
 		else if (header.name.toLowerCase() === "te") {
 		}
 		else if (header.name.toLowerCase() === "user-agent") {
-			header.value = getUserAgentHeader(seed);
+			header.value = getUserAgentHeader();
 		}
 	}
 
 	return {requestHeaders: e.requestHeaders};
 }
 
-// Listen for HTTP requests
 chrome.webRequest.onBeforeSendHeaders.addListener(rewriteHttpHeaders, {urls: ["<all_urls>"]}, ["blocking", "requestHeaders"]);
-
-// Content scripts need to know what seed to use for the PRNG
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	var storage = window.localStorage;
-	var seed = storage.getItem(request.hostname);
-	sendResponse({"seed": seed});
-});

@@ -17,6 +17,12 @@
             rectangle.y = rectangle.top;
         }
 
+        // TODO: Perhaps add/subtract more precise units e.g.
+        // TODO: 0.1
+        // TODO: 0.01
+        // TODO: 0.001
+        // TODO: 0.0001
+        // TODO: etc ...
         return Object.defineProperties(rectangle, {
             width: {
                 configurable: false,
@@ -59,6 +65,8 @@
 
     // Element methods. These work on an Element object.
     Element.prototype.getClientRects = function() {
+        console.log("[ALERT] " + window.location.hostname + " accessed property Element.getClientRects()");
+
         var rectangleList = originalGetClientRects.call(this);
 
         for (var i = 0; i < rectangleList.length; i++) {
@@ -69,6 +77,8 @@
     };
 
     Element.prototype.getBoundingClientRect = function() {
+        console.log("[ALERT] " + window.location.hostname + " accessed property Element.getBoundingClientRect()");
+
         var rectangle = originalGetBoundingClientRect.call(this);
 
         return fakeRectangleData(rectangle);
