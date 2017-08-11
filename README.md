@@ -10,7 +10,7 @@ Download here: https://addons.mozilla.org/addon/shape-shifter/
 
 OR
 
-$ git clone https://github.com/Snapper26/shapeshifter.git
+$ git clone https://github.com/Snapper26/shapeshifter.git  
 Type "about:debugging" in your address bar.  
 Click "Load Temporary Add-on".  
 Navigate to the project root directory and choose the manifest.json file.  
@@ -18,7 +18,7 @@ Enjoy :)
 
 ## Chrome/Chromium
 
-$ git clone https://github.com/Snapper26/shapeshifter.git
+$ git clone https://github.com/Snapper26/shapeshifter.git  
 Type "chrome://extensions/" in your address bar.  
 Check "Developer Mode".  
 Click "Load unpacked extension...".  
