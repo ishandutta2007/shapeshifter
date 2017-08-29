@@ -1,6 +1,6 @@
 {
     "name": "Shape Shifter",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Anti browser fingerprinting web extension. Generates randomised values for HTTP request headers and javascript API's.",
     "manifest_version": 2,
     "icons": {
