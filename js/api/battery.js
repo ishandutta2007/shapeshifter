@@ -4,19 +4,27 @@
     // NOTE: Mozilla Firefox has disabled the Battery Status API as of Firefox 52
     // NOTE: Chrome/Chromium probably still has it enabled.
 
-    function fakeCharging(seed) {           Math.seedrandom(seed); return randomBoolean(); }
-    function fakeChargingTime(seed) {       Math.seedrandom(seed); return randomNumber(0, 9999); }
-    function fakeDischargingTime(seed) {    Math.seedrandom(seed); return randomNumber(0, 9999); }
-    function fakeLevel(seed) {              Math.seedrandom(seed); return randomNumber(0, 2); }
+    function fakeCharging() {
+      return false;
+    }
+    function fakeChargingTime() {
+      return 0;
+    }
+    function fakeDischargingTime() {
+      return Infinity;
+    }
+    function fakeLevel() {
+      return 1.0;
+    }
 
-    const fakeChargingValue        = fakeCharging(seed);
-    const fakeChargingTimeValue    = fakeChargingTime(seed);
-    const fakeDischargingValue     = fakeDischargingTime(seed);
-    const fakeLevelValue           = fakeLevel(seed);
+    const fakeChargingValue        = fakeCharging();
+    const fakeChargingTimeValue    = fakeChargingTime();
+    const fakeDischargingValue     = fakeDischargingTime();
+    const fakeLevelValue           = fakeLevel();
 
     Object.defineProperties(BatteryManager.prototype, {
         charging: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getCharging() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property BatteryManager.charging");
@@ -27,7 +35,7 @@
 
         // TODO: This value could be infinity, if device is not charging
         chargingTime: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getChargingTime() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property BatteryManager.chargingTime");
@@ -38,7 +46,7 @@
 
         // TODO: This value could be infinity, if device is charging
         dischargingTime: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getDischargingTime() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property BatteryManager.dischargingTime");
@@ -47,9 +55,9 @@
             }
         },
 
-        // TODO: This could return any decimal number between 0 and 1, not just 0 or 1
+        // TODO: This could return any decimal number between 0.0 and 1.0 inclusive
         level: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getLevel() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property BatteryManager.level");

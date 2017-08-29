@@ -1,6 +1,8 @@
 (function(){
     'use strict';
 
+    var seed = document.currentScript.getAttribute("data-seed");
+
     // Read methods from AnalyserNode
     var originalGetFloatFrequencyData = AnalyserNode.prototype.getFloatFrequencyData;
     var originalGetByteFrequencyData = AnalyserNode.prototype.getByteFrequencyData;

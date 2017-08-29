@@ -1,6 +1,8 @@
 (function(){
     'use strict';
 
+    var seed = document.currentScript.getAttribute("data-seed");
+
     // Real methods from HTMLCanvasElement
     var originalToDataURL = HTMLCanvasElement.prototype.toDataURL;
     var originalToBlob = HTMLCanvasElement.prototype.toBlob;
@@ -58,15 +60,11 @@
         }
         else if (ctx instanceof WebGLRenderingContext || ctx instanceof WebGL2RenderingContext) {
             image = new ImageData(canvas.width, canvas.height);
-            // TODO: Do we need to create a new array here?
-            // TODO: How about just passing image.data to readPixels() directly?
-            var pixels = new Uint8ClampedArray(image.data.length);
-            originalReadPixels.call(ctx, 0, 0, canvas.width, canvas.height, ctx.RGBA, ctx.UNSIGNED_BYTE, pixels);
-            image.data = pixels;
+            originalReadPixels.call(ctx, 0, 0, canvas.width, canvas.height, ctx.RGBA, ctx.UNSIGNED_BYTE, image.data);
         }
         else if (ctx instanceof ImageBitmapRenderingContext) {
             // No methods for pixel data extraction. Nothing to do here ...
-            // TODO: How to initialise image variable?
+            // TODO: Could this be used to fingerprint?
         }
 
         // Fake the underlying pixel data

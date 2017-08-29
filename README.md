@@ -125,10 +125,3 @@ WebGL2RenderingContext
 | Property / Function | Spoofed |
 |----------------------|----------------------|
 | readPixels()         | YES                  |
-
-Element
-
-| Property / Function | Spoofed |
-|-------------------------|----------------------|
-| getClientRects()        | YES                  |
-| getBoundingClientRect() | YES                  |

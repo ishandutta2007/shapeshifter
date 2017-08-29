@@ -1,6 +1,8 @@
 (function() {
     'use strict';
 
+    var seed = document.currentScript.getAttribute("data-seed");
+
     function fakeLength(seed) { Math.seedrandom(seed); return randomNumber(0, 256); }
 
     const fakeLengthValue = fakeLength(seed);

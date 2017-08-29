@@ -1,87 +1,91 @@
 (function() {
     'use strict';
 
-    function fakeActiveVRDisplays(seed) {       Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeAppCodeName(seed) {
+    function fakeActiveVRDisplays() { return "Not Spoofed"; }
+    function fakeAppCodeName() {
       return "Mozilla";
     }
-    function fakeAppName(seed) {
+    function fakeAppName() {
       return "Netscape";
     }
 
-    function fakeAppVersion(seed) {
+    function fakeAppVersion() {
         return "5.0 (Windows)";
     }
-    function fakeBattery(seed) {                Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeConnection(seed) {             Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeGeoLocation(seed) {            Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeHardwareConcurrency(seed) {
+    function fakeBattery() { return "Not Spoofed"; }
+    function fakeConnection() { return "Not Spoofed"; }
+    function fakeGeoLocation() { return "Not Spoofed"; }
+    function fakeHardwareConcurrency() {
       return 1;
     }
-    function fakeJavaEnabled(seed) {
+    function fakeJavaEnabled() {
       return false;
     }
-    function fakeLanguage(seed) {
+    function fakeLanguage() {
         // NOTE: TOR Browser uses American English
         return "en-US";
     }
-    function fakeLanguages(seed) {
+    function fakeLanguages() {
         // NOTE: TOR Browser uses American English
         return "en-US,en";
     }
-    function fakeMimeTypes(seed) {              Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeOnLine(seed) {
+    function fakeMimeTypes() { return "Not Spoofed"; }
+    function fakeOnLine() {
       return true;
     }
-    function fakeOscpu(seed) {
+    function fakeOscpu() {
       return "Windows NT 6.1";
     }
-    function fakePermissions(seed) {            Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakePlatform(seed) {
+    function fakePermissions() { return "Not Spoofed"; }
+    function fakePlatform() {
       return "Win32";
     }
-    function fakePlugins(seed) {
+    function fakePlugins() {
         return window.navigator.plugins;
     }
-    function fakeProduct(seed) {
+    function fakeProduct() {
       return "Gecko";
     }
-    function fakeServiceWorker(seed) {          Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeStorage(seed) {                Math.seedrandom(seed); return randomString(32, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-    function fakeUserAgent(seed) {
+    function fakeServiceWorker() { return "Not Spoofed"; }
+    function fakeStorage() { return "Not Spoofed"; }
+    function fakeUserAgent() {
       // NOTE: Current TOR User Agent as of 19 July 2017
     	// NOTE: This will need constant updating.
     	// NOTE: As TOR changes firefox versions each update,
     	// NOTE: Shape Shifter will need to keep up.
     	return "Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0";
     }
+    function fakeBuildID() {
+      return "20100101";
+    }
 
-    const fakeActiveVRDisplaysValue       = fakeActiveVRDisplays(seed);
-    const fakeAppCodeNameValue            = fakeAppCodeName(seed);
-    const fakeAppNameValue                = fakeAppName(seed);
-    const fakeAppVersionValue             = fakeAppVersion(seed);
-    const fakeBatteryValue                = fakeBattery(seed);
-    const fakeConnectionValue             = fakeConnection(seed);
-    const fakeGeoLocationValue            = fakeGeoLocation(seed);
-    const fakeHardwareConcurrencyValue    = fakeHardwareConcurrency(seed);
-    const fakeJavaEnabledValue            = fakeJavaEnabled(seed);
-    const fakeLanguageValue               = fakeLanguage(seed);
-    const fakeLanguagesValue              = fakeLanguages(seed);
-    const fakeMimeTypesValue              = fakeMimeTypes(seed);
-    const fakeOnLineValue                 = fakeOnLine(seed);
-    const fakeOscpuValue                  = fakeOscpu(seed);
-    const fakePermissionsValue            = fakePermissions(seed);
-    const fakePlatformValue               = fakePlatform(seed);
-    const fakePluginsValue                = fakePlugins(seed);
-    const fakeProductValue                = fakeProduct(seed);
-    const fakeServiceWorkerValue          = fakeServiceWorker(seed);
-    const fakeStorageValue                = fakeStorage(seed);
-    const fakeUserAgentValue              = fakeUserAgent(seed);
+    const fakeActiveVRDisplaysValue       = fakeActiveVRDisplays();
+    const fakeAppCodeNameValue            = fakeAppCodeName();
+    const fakeAppNameValue                = fakeAppName();
+    const fakeAppVersionValue             = fakeAppVersion();
+    const fakeBatteryValue                = fakeBattery();
+    const fakeConnectionValue             = fakeConnection();
+    const fakeGeoLocationValue            = fakeGeoLocation();
+    const fakeHardwareConcurrencyValue    = fakeHardwareConcurrency();
+    const fakeJavaEnabledValue            = fakeJavaEnabled();
+    const fakeLanguageValue               = fakeLanguage();
+    const fakeLanguagesValue              = fakeLanguages();
+    const fakeMimeTypesValue              = fakeMimeTypes();
+    const fakeOnLineValue                 = fakeOnLine();
+    const fakeOscpuValue                  = fakeOscpu();
+    const fakePermissionsValue            = fakePermissions();
+    const fakePlatformValue               = fakePlatform();
+    const fakePluginsValue                = fakePlugins();
+    const fakeProductValue                = fakeProduct();
+    const fakeServiceWorkerValue          = fakeServiceWorker();
+    const fakeStorageValue                = fakeStorage();
+    const fakeUserAgentValue              = fakeUserAgent();
+    const fakeBuildIDValue                = fakeBuildID();
 
     Object.defineProperties(window.navigator, {
         /*
         activeVRDisplays: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getActiveVRDisplays() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.activeVRDisplays");
@@ -92,7 +96,7 @@
         */
 
         appCodeName: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getAppCodeName() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.appCodeName");
@@ -101,7 +105,7 @@
             }
         },
         appName: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getAppName() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.appName");
@@ -110,7 +114,7 @@
             }
         },
         appVersion: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getAppVersion() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.appVersion");
@@ -122,7 +126,7 @@
         // TODO: This is getBattery() now
         /*
         battery: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getBattery() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.battery");
@@ -131,7 +135,7 @@
             }
         },
         connection: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getConnection() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.connection");
@@ -140,7 +144,7 @@
             }
         },
         geolocation: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getGeoLocation() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.geolocation");
@@ -151,7 +155,7 @@
         */
 
         hardwareConcurrency: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getHardwareConcurrency() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.hardwareConcurrency");
@@ -159,8 +163,10 @@
                 return fakeHardwareConcurrencyValue;
             }
         },
+
+        /*
         javaEnabled: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             value: function getJavaEnabled() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.javaEnabled");
@@ -168,8 +174,10 @@
                 return fakeJavaEnabledValue;
             }
         },
+        */
+
         language: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getLanguage() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.language");
@@ -178,7 +186,7 @@
             }
         },
         languages: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getLanguages() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.languages");
@@ -189,7 +197,7 @@
 
         /*
         mimeTypes: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getMimeTypes() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.mimeTypes");
@@ -200,7 +208,7 @@
         */
 
         onLine: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getOnLine() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.onLine");
@@ -209,7 +217,7 @@
             }
         },
         oscpu: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getOscpu() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.oscpu");
@@ -220,7 +228,7 @@
 
         /*
         permissions: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getPermissions() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.permissions");
@@ -231,7 +239,7 @@
         */
 
         platform: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getPlatform() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.platform");
@@ -242,7 +250,7 @@
 
         /*
         plugins: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getPlugins() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.plugins");
@@ -253,7 +261,7 @@
         */
 
         product: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getProduct() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.product");
@@ -264,7 +272,7 @@
 
         /*
         serviceWorker: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getServiceWorker() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.serviceWorker");
@@ -273,7 +281,7 @@
             }
         },
         storage: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getStorage() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.storage");
@@ -284,12 +292,21 @@
         */
 
         userAgent: {
-            configurable: false,
+            configurable: true,
             enumerable: true,
             get: function getUserAgent() {
                 console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.userAgent");
 
                 return fakeUserAgentValue;
+            }
+        },
+        buildID: {
+            configurable: true,
+            enumerable: true,
+            get: function getBuildID() {
+                console.log("[ALERT] " + window.location.hostname + " accessed property Navigator.buildID");
+
+                return fakeBuildIDValue;
             }
         }
     });

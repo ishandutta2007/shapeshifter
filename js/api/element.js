@@ -1,6 +1,8 @@
 (function(){
     'use strict';
 
+    var seed = document.currentScript.getAttribute("data-seed");
+
     // Real methods from Element
     var originalGetClientRects = Element.prototype.getClientRects;
     var originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
@@ -23,42 +25,45 @@
         // TODO: 0.001
         // TODO: 0.0001
         // TODO: etc ...
+
+        var shift = 1;
+
         return Object.defineProperties(rectangle, {
             width: {
                 configurable: false,
                 enumerable: true,
                 writable: false,
-                value: rectangle.width + (randomBoolean() ? 1 : -1)
+                value: rectangle.width + (randomBoolean() ? shift : -shift)
             },
             height: {
                 configurable: false,
                 enumerable: true,
                 writable: false,
-                value: rectangle.height + (randomBoolean() ? 1 : -1)
+                value: rectangle.height + (randomBoolean() ? shift : -shift)
             },
             top: {
                 configurable: false,
                 enumerable: true,
                 writable: false,
-                value: rectangle.top + (randomBoolean() ? 1 : -1)
+                value: rectangle.top + (randomBoolean() ? shift : -shift)
             },
             right: {
                 configurable: false,
                 enumerable: true,
                 writable: false,
-                value: rectangle.right + (randomBoolean() ? 1 : -1)
+                value: rectangle.right + (randomBoolean() ? shift : -shift)
             },
             bottom: {
                 configurable: false,
                 enumerable: true,
                 writable: false,
-                value: rectangle.bottom + (randomBoolean() ? 1 : -1)
+                value: rectangle.bottom + (randomBoolean() ? shift : -shift)
             },
             left: {
                 configurable: false,
                 enumerable: true,
                 writable: false,
-                value: rectangle.left + (randomBoolean() ? 1 : -1)
+                value: rectangle.left + (randomBoolean() ? shift : -shift)
             }
         });
     }

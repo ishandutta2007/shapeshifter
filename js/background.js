@@ -71,7 +71,7 @@ function getUserAgentHeader() {
 	return "Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0";
 }
 
-function rewriteHttpHeaders(e) {
+function rewriteHttpRequestHeaders(e) {
 	for (var header of e.requestHeaders) {
 		if (header.name.toLowerCase() === "accept") {
 		}
@@ -119,4 +119,4 @@ function rewriteHttpHeaders(e) {
 	return {requestHeaders: e.requestHeaders};
 }
 
-chrome.webRequest.onBeforeSendHeaders.addListener(rewriteHttpHeaders, {urls: ["<all_urls>"]}, ["blocking", "requestHeaders"]);
+chrome.webRequest.onBeforeSendHeaders.addListener(rewriteHttpRequestHeaders, {urls: ["<all_urls>"]}, ["blocking", "requestHeaders"]);
