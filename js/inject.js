@@ -49,7 +49,7 @@ var seed = getSeed(window.location.hostname);
 
 // TODO: Still can see real values for navigator (and probably other objects)
 // TODO: when using the iframe.contentWindow method.
-inject("js/lib/seedrandom.min.js", seed);
+inject("js/lib/seedrandom.js", seed);
 console.log("[INFO] Injected Seed Random ...");
 
 inject("js/random.js", seed);
