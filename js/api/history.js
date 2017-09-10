@@ -3,7 +3,9 @@
 
     var seed = document.currentScript.getAttribute("data-seed");
 
-    function fakeLength(seed) { Math.seedrandom(seed); return randomNumber(0, 256); }
+    function fakeLength(seed) {
+      return 0;
+    }
 
     const fakeLengthValue = fakeLength(seed);
 
